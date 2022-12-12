@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:51:31 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/12/11 04:47:44 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/12/12 09:44:21 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*routine (void *arg)
 	i = -1;
 	pthread_mutex_lock(data->mutex);
 	eating(data);
-	while (++i < 10000000)
+	while (++i < 100)
 		data->number++;	
 	pthread_mutex_unlock(data->mutex);
 	return (arg);
@@ -41,10 +41,11 @@ int main (int argc, char **argv)
 {
 	struct	s_data	*data;		
 
-	if (argc == 5)
-		init_normal(&data, argv);
-	else if (argc == 6)
-		init_optional(&data, argv);
+	if (argc == 5 || argc == 6)
+	{
+		if (init_threads(&data, argv))
+			return (0);
+	}
 	else
 		return (0);
 	printf("Starting main\n");

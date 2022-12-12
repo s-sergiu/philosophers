@@ -23,8 +23,7 @@ struct s_data
 };
 
 
-void	init_optional(struct s_data **data, char **argv);
-void	init_normal(struct s_data **data, char **argv);
+int		init_threads(struct s_data **data, char **argv);
 int		ft_atoi(const char *str);
 void	*routine (void *arg);
 void	eating(struct s_data *data);
