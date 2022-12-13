@@ -48,5 +48,6 @@ int	init_threads(struct s_data **data, char **argv)
 	(*data)->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init((*data)->mutex, NULL);
 	create_threads(data);
+	//
 	return (0);
 }
