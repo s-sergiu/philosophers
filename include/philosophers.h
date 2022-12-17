@@ -23,9 +23,12 @@ struct s_data
 };
 
 
-int		init_threads(struct s_data **data, char **argv);
+void	init_threads(struct s_data **data, char **argv);
 int		ft_atoi(const char *str);
 void	*routine (void *arg);
 void	eating(struct s_data *data);
+void	thinking(struct s_data *data);
+void	sleeping(struct s_data *data);
+void	*philo_routine (void *arg);
 
 #endif

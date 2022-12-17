@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:50:32 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/12/12 09:45:15 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/12/17 07:36:59 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	create_threads(struct s_data **data)
 	threads = (*data)->threads;
 	i = -1;
 	while (++i < (*data)->philosophers)
-		pthread_create(&threads[i], NULL, routine, (*data));
+		pthread_create(&threads[i], NULL, philo_routine, (*data));
 	i = -1;
 	while (++i < (*data)->philosophers)
-		pthread_join(threads[i], NULL);
+		pthread_detach(threads[i]);
 }
 
-int	init_threads(struct s_data **data, char **argv)
+void	init_threads(struct s_data **data, char **argv)
 {
 	(*data) = (struct s_data *)malloc(sizeof(struct s_data));
 	(*data)->number = 0;
@@ -39,14 +39,7 @@ int	init_threads(struct s_data **data, char **argv)
 	(*data)->tts = ft_atoi(argv[4]);
 	if (argv[5])
 		(*data)->times_eat = ft_atoi(argv[5]);
-	if ((*data)->philosophers < 1 || (*data)->ttd < 1 || (*data)->tte < 1
-		|| (*data)->tts < 1 || (*data)->times_eat < 1)
-	{
-		write(1, "Input error\n", 12);
-		return (1);
-	}
 	(*data)->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init((*data)->mutex, NULL);
 	create_threads(data);
-	return (0);
 }

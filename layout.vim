@@ -46,13 +46,16 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +0 Makefile
-badd +0 src/main.c
-badd +0 include/philosophers.h
+badd +1 Makefile
+badd +1 src/main.c
+badd +1 include/philosophers.h
+badd +1 src/actions.c
+badd +1 src/utils.c
+badd +0 src/init.c
 argglobal
 %argdel
 $argadd Makefile
-edit include/philosophers.h
+edit src/init.c
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -81,7 +84,7 @@ exe 'vert 3resize ' . ((&columns * 90 + 182) / 364)
 exe 'vert 4resize ' . ((&columns * 90 + 182) / 364)
 argglobal
 terminal ++curwin ++cols=91 ++rows=82 
-let s:term_buf_4 = bufnr()
+let s:term_buf_5 = bufnr()
 balt include/philosophers.h
 setlocal keymap=
 setlocal noarabic
@@ -224,7 +227,7 @@ keepjumps 1
 normal! 0
 wincmd w
 argglobal
-balt src/main.c
+balt src/utils.c
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -261,8 +264,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal noexpandtab
-if &filetype != 'cpp'
-setlocal filetype=cpp
+if &filetype != 'c'
+setlocal filetype=c
 endif
 setlocal fillchars=
 setlocal fixendofline
@@ -334,8 +337,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'cpp'
-setlocal syntax=cpp
+if &syntax != 'c'
+setlocal syntax=c
 endif
 setlocal tabstop=4
 setlocal tagcase=
@@ -513,8 +516,8 @@ keepjumps 1
 normal! 0
 wincmd w
 argglobal
-if bufexists(fnamemodify("Makefile", ":p")) | buffer Makefile | else | edit Makefile | endif
-balt src/main.c
+if bufexists(fnamemodify("src/actions.c", ":p")) | buffer src/actions.c | else | edit src/actions.c | endif
+balt Makefile
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -551,8 +554,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal noexpandtab
-if &filetype != 'make'
-setlocal filetype=make
+if &filetype != 'c'
+setlocal filetype=c
 endif
 setlocal fillchars=
 setlocal fixendofline
@@ -624,8 +627,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'make'
-setlocal syntax=make
+if &syntax != 'c'
+setlocal syntax=c
 endif
 setlocal tabstop=4
 setlocal tagcase=
@@ -657,7 +660,7 @@ normal! zt
 keepjumps 1
 normal! 0
 wincmd w
-2wincmd w
+3wincmd w
 exe 'vert 1resize ' . ((&columns * 91 + 182) / 364)
 exe 'vert 2resize ' . ((&columns * 90 + 182) / 364)
 exe 'vert 3resize ' . ((&columns * 90 + 182) / 364)

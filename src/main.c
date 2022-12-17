@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:51:31 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/12/12 09:44:21 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/12/17 11:38:08 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,21 @@ void	print_values(t_data **data)
 	printf("Time to eat: %d.\n", (*data)->tte);
 	printf("Time to sleep: %d.\n", (*data)->tts);
 	printf("Number of times they eat: %d.\n", (*data)->times_eat);
+	printf("The number is: %d.\n", (*data)->number);
+}
+
+void	*philo_routine (void *arg)
+{
+	struct s_data	*data;
+
+	data = arg;
+	// eat
+	eating(data);	
+	// think
+	thinking(data);
+	// sleep
+	sleeping(data);
+	return (NULL);
 }
 
 void	*routine (void *arg)
@@ -27,12 +42,14 @@ void	*routine (void *arg)
 	int				i;
 
 	data = arg;
-	printf("Routine...\n");
 	i = -1;
 	pthread_mutex_lock(data->mutex);
 	eating(data);
-	while (++i < 100)
+	while (++i < 10)
+	{
 		data->number++;	
+		printf("Routine...\n");
+	}
 	pthread_mutex_unlock(data->mutex);
 	return (arg);
 }
@@ -42,19 +59,16 @@ int main (int argc, char **argv)
 	struct	s_data	*data;		
 
 	if (argc == 5 || argc == 6)
-	{
-		if (init_threads(&data, argv))
-			return (0);
-	}
+		init_threads(&data, argv);
 	else
 		return (0);
 	printf("Starting main\n");
 	printf("\n");
-	print_values(&data);
 	printf("\n");
 	printf("Initialized struct\n");
 	pthread_mutex_destroy(data->mutex);
 	printf("Exiting main\n");
-	printf("number is %d\n", data->number);
+	sleep(1);
+	print_values(&data);
 	return (0);
 }
