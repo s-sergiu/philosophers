@@ -6,13 +6,13 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:51:31 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/12/17 11:38:08 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/12/21 14:57:20 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-void	print_values(t_data **data)
+void	print_values(struct s_data  **data)
 {
 	printf("Number of philosophers: %d.\n", (*data)->philosophers);
 	printf("Time to die: %d.\n", (*data)->ttd);
@@ -22,7 +22,7 @@ void	print_values(t_data **data)
 	printf("The number is: %d.\n", (*data)->number);
 }
 
-void	*philo_routine (void *arg)
+void	*philo_routine(void *arg)
 {
 	struct s_data	*data;
 
@@ -36,7 +36,7 @@ void	*philo_routine (void *arg)
 	return (NULL);
 }
 
-void	*routine (void *arg)
+void	*routine(void *arg)
 {
 	struct s_data	*data;
 	int				i;
@@ -54,7 +54,7 @@ void	*routine (void *arg)
 	return (arg);
 }
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
 	struct	s_data	*data;		
 
@@ -62,13 +62,6 @@ int main (int argc, char **argv)
 		init_threads(&data, argv);
 	else
 		return (0);
-	printf("Starting main\n");
-	printf("\n");
-	printf("\n");
-	printf("Initialized struct\n");
 	pthread_mutex_destroy(data->mutex);
-	printf("Exiting main\n");
-	sleep(1);
-	print_values(&data);
 	return (0);
 }

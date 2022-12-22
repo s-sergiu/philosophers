@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:50:32 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/12/17 07:36:59 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/12/20 20:54:08 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,29 @@ void	create_threads(struct s_data **data)
 		pthread_create(&threads[i], NULL, philo_routine, (*data));
 	i = -1;
 	while (++i < (*data)->philosophers)
-		pthread_detach(threads[i]);
+		pthread_join(threads[i], NULL);
+}
+
+void	create_philos(struct s_data **data)
+{
+	int			i;
+	struct s_philo	**philos;
+	int			number;
+	
+	number = (*data)->philosophers;
+	(*data)->philos = (struct s_philo **)malloc(sizeof(struct s_philo *) * number);
+	philos  = (*data)->philos;
+	i = -1;
+	while (++i < number)
+	{
+		printf("test\n");
+		pthread_create((*philos + i)->thread, NULL, philo_routine, (*data));
+		philos[i]->id = number;
+		pthread_mutex_init(philos[i]->fork, NULL);
+	}
+	i = -1;
+	while (++i < (*data)->philosophers)
+		pthread_join(*philos[i]->thread, NULL);
 }
 
 void	init_threads(struct s_data **data, char **argv)
@@ -41,5 +63,6 @@ void	init_threads(struct s_data **data, char **argv)
 		(*data)->times_eat = ft_atoi(argv[5]);
 	(*data)->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init((*data)->mutex, NULL);
+//	create_philos(data);
 	create_threads(data);
 }
