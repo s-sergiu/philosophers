@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 15:06:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/02 10:46:40 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/02 12:46:19 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#define TRUE 1
+#define FALSE 1
 
 
 typedef struct s_data t_data;
