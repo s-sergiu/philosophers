@@ -6,6 +6,39 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 15:06:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/12/29 02:08:18 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/02 10:46:40 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef PHILOSOPHERS_H
+#define PHILOSOPHERS_H
+
+#include <unistd.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct s_data t_data;
+typedef struct s_philosophers t_philosophers;
+
+struct	s_data
+{
+	int						number_of_philosophers;
+	int						time_to_die;
+	int						time_to_eat;
+	int						time_to_sleep;
+	struct s_philosophers	*philosophers;
+};
+
+struct	s_philosophers
+{
+	int				id;
+	pthread_t		*thread;
+	pthread_mutex_t *fork;
+};
+
+void		initialize_data(struct s_data **data, char **argv);
+void		initialize_philosophers(struct s_data **data);
+
+#endif
