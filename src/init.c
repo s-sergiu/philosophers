@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:50:32 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/02 12:44:06 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/03 18:30:43 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,43 @@ int	ft_atoi(char *string)
 
 void	initialize_data(struct s_data **data, char **argv)
 {
+	int number;
+
 	*data = (struct s_data*)malloc(sizeof(struct s_data));
 	(*data)->number_of_philosophers = ft_atoi(argv[1]);
 	(*data)->time_to_die = ft_atoi(argv[2]);
 	(*data)->time_to_eat = ft_atoi(argv[3]);
 	(*data)->time_to_sleep = ft_atoi(argv[4]);
+	number = (*data)->number_of_philosophers;
+	(*data)->philosophers = (struct s_philosophers**)malloc(sizeof(struct s_philosophers*) * number);
 
 }
 
 void	initialize_philosophers(struct s_data **data)
 {
+	struct s_philosophers **philo;
+	int i;
+
+	i = 0;
+	philo = (*data)->philosophers;
+	while (i < (*data)->number_of_philosophers)
+	{
+		printf("hello\n");
+		(*data)->philosophers[i]->id = i;
+		(*data)->philosophers[i]->thread = (pthread_t*)malloc(sizeof(pthread_t*));
+		i++;
+	}
+	i = 0;
+	while (i < (*data)->number_of_philosophers)
+	{
+		pthread_create((*data)->philosophers[i]->thread, NULL, routine, *data);
+		i++;
+	}
+
+	/* if successful pthread create returns 0, otherwise an error number will be 
+	returned to indicate the error; 
+	*/
+
 	printf("Number of philos: %d\n", (*data)->number_of_philosophers);
 	printf("Time to die: %d\n", (*data)->time_to_die);
 	printf("Time to eat: %d\n", (*data)->time_to_eat);
