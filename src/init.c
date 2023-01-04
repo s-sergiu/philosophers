@@ -6,16 +6,9 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:50:32 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/04 10:51:41 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/04 15:51:30 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* started at 8:30 
-* 9:32 - managed to implement philo creation with routine;
-  10:48 - implemented a simple routine with actions (eat, sleep and think);
-  * don't feel as productive as I was; 
-* todo - trying to solve the holding pattern; 
-*/
 
 #include "../include/philosophers.h"
 
@@ -52,7 +45,7 @@ void	initialize_data(struct s_data **data, char **argv)
 	(*data)->time_to_die = ft_atoi(argv[2]);
 	(*data)->time_to_eat = ft_atoi(argv[3]);
 	(*data)->time_to_sleep = ft_atoi(argv[4]);
-	(*data)->flag = 0;
+	(*data)->is_dead = 0;
 	number = (*data)->number_of_philosophers;
 	(*data)->philosophers = malloc(sizeof(struct s_philosophers*) * number);
 
@@ -70,11 +63,11 @@ void	initialize_philosophers(struct s_data **data)
 	while (i < number)
 	{
 		philo[i] = malloc(sizeof(struct s_philosophers));
-		philo[i]->id = i;
+		philo[i]->id = i + 1;
 		philo[i]->time_to_die = &(*data)->time_to_die;
 		philo[i]->time_to_eat= &(*data)->time_to_eat;
 		philo[i]->time_to_sleep = &(*data)->time_to_sleep;
-		philo[i]->flag = &(*data)->flag;
+		philo[i]->dead_flag = &(*data)->is_dead;
 		philo[i]->thread = malloc(sizeof(pthread_t*));
 		philo[i]->number = &(*data)->number_of_philosophers;
 		i++;
@@ -83,7 +76,6 @@ void	initialize_philosophers(struct s_data **data)
 	while (i < number)
 	{
 	pthread_create(philo[i]->thread, NULL, routine, philo[i]);
-	(*data)->flag++;
 	i++;
 	}
 	i = 0;

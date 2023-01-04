@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:51:31 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/04 09:53:59 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/04 14:21:52 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int main(int argc, char **argv)
 		return (input_error());
 	else
 	{
-		printf("Argc is %d with argv[1] as %s\n", argc, argv[1]);
 		initialize_data(&data, argv);
 		if (is_invalid_input(data))
 			return (input_error());

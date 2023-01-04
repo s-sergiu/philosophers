@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 03:07:29 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/04 10:46:12 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/04 15:50:54 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	sleeping(void *arg)
 
 	philo = arg;
 	printf("Philo %d is sleeping;\n", philo->id);
+	usleep(*philo->time_to_sleep * 1000);
 }
 
 void *routine(void *arg)
@@ -43,11 +44,11 @@ void *routine(void *arg)
 	struct s_philosophers	*philo;
 
 	philo = arg;
-	while(*philo->flag < *philo->number)
-		printf("holding\n");
-	philo = arg;
-	eat(arg);
-	think(arg);
-	sleeping(arg);
+	while (*philo->dead_flag == 0)
+	{
+		eat(arg);
+		think(arg);
+		sleeping(arg);
+	}
 	return (NULL);
 }

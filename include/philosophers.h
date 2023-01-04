@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 15:06:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/04 10:44:34 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/04 15:51:30 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ struct	s_data
 	int						time_to_die;
 	int						time_to_eat;
 	int						time_to_sleep;
-	int						flag;
+	int						is_dead;
 	struct s_philosophers	**philosophers;
 };
 
@@ -40,7 +40,7 @@ struct	s_philosophers
 	int				*time_to_die;
 	int				*time_to_eat;
 	int				*time_to_sleep;
-	int				*flag;
+	int				*dead_flag;
 	int				*number;
 	pthread_t		*thread;
 };
