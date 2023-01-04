@@ -6,9 +6,16 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:50:32 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/03 18:30:43 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/04 10:49:58 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* started at 8:30 
+* 9:32 - managed to implement philo implementation with routine;
+  10:48 - implemented a simple routine with actions (eat, sleep and think);
+  * don't feel as productive as I was; 
+* todo - trying to solve the holding pattern; 
+*/
 
 #include "../include/philosophers.h"
 
@@ -45,38 +52,44 @@ void	initialize_data(struct s_data **data, char **argv)
 	(*data)->time_to_die = ft_atoi(argv[2]);
 	(*data)->time_to_eat = ft_atoi(argv[3]);
 	(*data)->time_to_sleep = ft_atoi(argv[4]);
+	(*data)->flag = 0;
 	number = (*data)->number_of_philosophers;
-	(*data)->philosophers = (struct s_philosophers**)malloc(sizeof(struct s_philosophers*) * number);
+	(*data)->philosophers = malloc(sizeof(struct s_philosophers*) * number);
 
 }
 
 void	initialize_philosophers(struct s_data **data)
 {
-	struct s_philosophers **philo;
+	int number;
 	int i;
+	struct s_philosophers **philo;
 
 	i = 0;
+	number = (*data)->number_of_philosophers;
 	philo = (*data)->philosophers;
-	while (i < (*data)->number_of_philosophers)
+	while (i < number)
 	{
-		printf("hello\n");
-		(*data)->philosophers[i]->id = i;
-		(*data)->philosophers[i]->thread = (pthread_t*)malloc(sizeof(pthread_t*));
+		philo[i] = malloc(sizeof(struct s_philosophers));
+		philo[i]->id = i;
+		philo[i]->time_to_die = &(*data)->time_to_die;
+		philo[i]->time_to_eat= &(*data)->time_to_eat;
+		philo[i]->time_to_sleep = &(*data)->time_to_sleep;
+		philo[i]->flag = &(*data)->flag;
+		philo[i]->thread = malloc(sizeof(pthread_t*));
+		philo[i]->number = &(*data)->number_of_philosophers;
 		i++;
 	}
 	i = 0;
-	while (i < (*data)->number_of_philosophers)
+	while (i < number)
 	{
-		pthread_create((*data)->philosophers[i]->thread, NULL, routine, *data);
-		i++;
+	pthread_create(philo[i]->thread, NULL, routine, philo[i]);
+	(*data)->flag++;
+	i++;
 	}
-
-	/* if successful pthread create returns 0, otherwise an error number will be 
-	returned to indicate the error; 
-	*/
-
-	printf("Number of philos: %d\n", (*data)->number_of_philosophers);
-	printf("Time to die: %d\n", (*data)->time_to_die);
-	printf("Time to eat: %d\n", (*data)->time_to_eat);
-	printf("Time to sleep: %d\n", (*data)->time_to_sleep);
+	i = 0;
+	while (i < number)
+	{
+	pthread_join(*philo[i]->thread, NULL);
+	i++;
+	}
 }
