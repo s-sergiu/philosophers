@@ -6,12 +6,12 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:50:32 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/04 10:49:58 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/04 10:51:41 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* started at 8:30 
-* 9:32 - managed to implement philo implementation with routine;
+* 9:32 - managed to implement philo creation with routine;
   10:48 - implemented a simple routine with actions (eat, sleep and think);
   * don't feel as productive as I was; 
 * todo - trying to solve the holding pattern; 
