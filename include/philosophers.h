@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 15:06:48 by ssergiu           #+#    #+#             */
-/*   Updated: 2023/01/04 15:51:30 by ssergiu          ###   ########.fr       */
+/*   Updated: 2023/01/05 17:46:27 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #define TRUE 1
 #define FALSE 1
 
